@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../home/Footer';
 import Navbar from '../components/Navbar';
 
+const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
+
 export default function MyOrder() {
     const [orderData, setOrderData] = useState([]);
 
     const fetchMyOrder = async () => {
         try {
             const userEmail = localStorage.getItem('userEmail');
-            const res = await fetch("/api/myOrderData", {
+            const res = await fetch(`${apiBase}/api/myOrderData`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -2,12 +2,16 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 
 // Connection string to your MongoDB Atlas cluster
-const mongoURI = 'mongodb+srv://Foodie-Bar:phaphama@cluster0.acx84up.mongodb.net/testdb?retryWrites=true&w=majority';
+const mongoURI = process.env.MONGO_URI || process.env.DATABASE_URL;
 
 
 // Function to connect to MongoDB and execute callbacks
 const mongoDB = async (callback) => {
     try {
+        if (!mongoURI) {
+            throw new Error('Missing MONGO_URI/DATABASE_URL environment variable');
+        }
+
         // Connect to the MongoDB database
         await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
         console.log("Successfully connected to MongoDB!");

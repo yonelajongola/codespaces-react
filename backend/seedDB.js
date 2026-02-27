@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 
-const mongoURI = 'mongodb+srv://Foodie-Bar:phaphama@cluster0.acx84up.mongodb.net/testdb?retryWrites=true&w=majority';
+const mongoURI = process.env.MONGO_URI || process.env.DATABASE_URL;
 
 async function seedDatabase() {
     try {
+        if (!mongoURI) {
+            throw new Error('Missing MONGO_URI/DATABASE_URL environment variable');
+        }
+
         await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
         console.log("✅ Connected to MongoDB Atlas");
 

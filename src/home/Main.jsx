@@ -4,6 +4,8 @@ import Footer from '../home/Footer';
 import Card from '../components/Card';
 import Carousel from '../components/Carousel';
 
+const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
+
 export default function Main() {
     const [foodCat, setFoodCat] = useState([]);
     const [foodItem, setFoodItem] = useState([]);
@@ -11,7 +13,7 @@ export default function Main() {
 
     const loadData = async () => {
         try {
-            let response = await fetch("/api/foodData", {
+            let response = await fetch(`${apiBase}/api/foodData`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

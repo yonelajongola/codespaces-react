@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useCart, useDispatchCart } from '../components/ContextReducer';
 import { useNavigate } from 'react-router-dom';
 
+const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
+
 export default function Payment() {
   const cart = useCart();
   const dispatch = useDispatchCart();
@@ -21,7 +23,7 @@ export default function Payment() {
       await new Promise(r => setTimeout(r, 1200));
 
       // On successful payment (mock), save order to backend
-      const res = await fetch('/api/orderData', {
+      const res = await fetch(`${apiBase}/api/orderData`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

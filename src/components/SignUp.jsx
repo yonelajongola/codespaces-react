@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
+const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
+
 export default function SignUp() {
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", geolocation: "" });
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("/api/createuser", {
+        const response = await fetch(`${apiBase}/api/createuser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

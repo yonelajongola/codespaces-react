@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
+const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
+
 export default function Login() {
     const [credentials, setCredentials] = useState({email:"",password:""})
     const navigate = useNavigate();
@@ -12,7 +14,7 @@ export default function Login() {
 
 const handleSubmit = async(e)=>{
        e.preventDefault();
-const response = await fetch("/api/loginuser",
+const response = await fetch(`${apiBase}/api/loginuser`,
     {
       method:'POST',
       headers:{
