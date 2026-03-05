@@ -24,7 +24,8 @@ router.post('/createuser', [
             name: req.body.name,
             password: secPassword,
             email: req.body.email,
-            location: req.body.location
+            location: req.body.location,
+            role: req.body.role || 'worker'
         });
         res.json({ success: true });
     } catch (error) {
@@ -56,11 +57,20 @@ router.post('/loginuser', [
 
         const data = {
             user: {
-                id: userData.id
+                id: userData.id,
+                role: userData.role,
+                name: userData.name,
+                email: userData.email
             }
         };
         const authToken = jwt.sign(data, jwtSecret);
-        return res.json({ success: true, authToken: authToken });
+        return res.json({
+            success: true,
+            authToken: authToken,
+            role: userData.role,
+            name: userData.name,
+            email: userData.email
+        });
     } catch (error) {
         console.log(error);
         res.json({ success: false });

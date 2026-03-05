@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import { useAuth } from '../context/AuthContext'
 
 const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
 
 export default function Login() {
     const [credentials, setCredentials] = useState({email:"",password:""})
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const onChange=(event)=>{
       setCredentials({...credentials,[event.target.name]:event.target.value})
@@ -29,9 +31,14 @@ const response = await fetch(`${apiBase}/api/loginuser`,
 
     if(json.success)
       {
-        localStorage.setItem('authToken', json.authToken);
-        localStorage.setItem('userEmail', credentials.email);
-        navigate('/');
+        login({ authToken: json.authToken, email: json.email, role: json.role, name: json.name });
+        if (json.role === 'owner') {
+          navigate('/owner');
+        } else if (json.role === 'worker') {
+          navigate('/worker');
+        } else {
+          navigate('/');
+        }
       } else {
         alert("Enter Valid credentials")
       }
@@ -54,7 +61,7 @@ const response = await fetch(`${apiBase}/api/loginuser`,
   </div>
   
   <button type="submit" className="m-3 btn btn-primary">Submit</button>
-  <Link to="/signup" className='m-3 btn btn-danger'> New User</Link>
+  <Link to="/createuser" className='m-3 btn btn-danger'> New User</Link>
 </form>
 </div>
       </div>

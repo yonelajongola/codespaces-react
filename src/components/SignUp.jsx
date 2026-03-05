@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
 
 export default function SignUp() {
-    const [credentials, setCredentials] = useState({ name: "", email: "", password: "", geolocation: "" });
+    const [credentials, setCredentials] = useState({ name: "", email: "", password: "", geolocation: "", role: "worker" });
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -19,7 +19,8 @@ export default function SignUp() {
                 name: credentials.name,
                 email: credentials.email,
                 password: credentials.password,
-                location: credentials.geolocation
+                location: credentials.geolocation,
+                role: credentials.role
             })
         });
 
@@ -92,6 +93,19 @@ export default function SignUp() {
                             id="geolocationInput"
                             placeholder="Location"
                         />
+                    </div>
+                    <div className="m-3">
+                        <label htmlFor="roleSelect">Role</label>
+                        <select
+                            className="form-control"
+                            name='role'
+                            value={credentials.role}
+                            onChange={onChange}
+                            id="roleSelect"
+                        >
+                            <option value="worker">Worker</option>
+                            <option value="owner">Owner</option>
+                        </select>
                     </div>
                     <button type="submit" className="m-3 btn btn-primary">Submit</button>
                     <Link to="/login" className='m-3 mx-1 btn btn-danger'>Already a User</Link>
