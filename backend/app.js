@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const mongoDB = require('./db');
 
 const app = express();
@@ -24,21 +25,50 @@ mongoDB(function (err, data, catData) {
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', corsOrigin);
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
   next();
 });
 
 app.use(express.json());
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, errors: 'Too many requests, please try again later.' }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, errors: 'Too many login attempts, please try again later.' }
+});
 
 if (!process.env.NETLIFY) {
   const distPath = path.join(__dirname, '../dist');
   app.use(express.static(distPath));
 }
 
+app.use(`${basePath}/loginuser`, authLimiter);
+app.use(`${basePath}/createuser`, authLimiter);
+app.use(basePath, apiLimiter);
+
 app.use(basePath, require('./Routes/CreateUser'));
 app.use(basePath, require('./Routes/DisplayData'));
 app.use(basePath, require('./Routes/OrderData'));
+app.use(basePath, require('./Routes/TableRoutes'));
+app.use(basePath, require('./Routes/KitchenRoutes'));
+app.use(basePath, require('./Routes/OwnerRoutes'));
+app.use(basePath, require('./Routes/MenuRoutes'));
+app.use(basePath, require('./Routes/InventoryRoutes'));
+app.use(basePath, require('./Routes/AIRoutes'));
 
 if (!process.env.NETLIFY) {
   app.get('/', (req, res) => {
