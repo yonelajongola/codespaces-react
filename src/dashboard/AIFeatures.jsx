@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+const RELEVANT_HOURS = new Set([8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20]);
 const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
 
 function authHeaders() {
@@ -104,7 +105,7 @@ export default function AIFeatures() {
                     )}
                     {predictions.length > 0 && (
                         <ResponsiveContainer width="100%" height={300}>
-                            <BarChart data={predictions.filter(p => p.predicted > 0 || [8,9,10,11,12,13,14,15,18,19,20].includes(parseInt(p.hour)))}>
+                            <BarChart data={predictions.filter(p => p.predicted > 0 || RELEVANT_HOURS.has(parseInt(p.hour)))}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="hour" tick={{ fontSize: 10 }} />
                                 <YAxis />
