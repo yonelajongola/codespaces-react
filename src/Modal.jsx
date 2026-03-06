@@ -25,7 +25,6 @@ import ReactDom from 'react-dom'
         zIndex: 999,
     }
      export default function Modal({ children, onClose }){
-        console.log('Modal render, has children:', !!children);
         return ReactDom.createPortal(
         <>
         <div style={OVERLAY_STYLES} onClick={onClose}/>

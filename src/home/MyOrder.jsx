@@ -22,7 +22,7 @@ export default function MyOrder() {
             const response = await res.json();
             setOrderData(response.orderData);
         } catch (error) {
-            console.error("Error fetching orders:", error);
+            // Silent error handling
         }
     };
 

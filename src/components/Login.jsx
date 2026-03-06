@@ -25,7 +25,6 @@ const response = await fetch(`${apiBase}/api/loginuser`,
   
 
     const json = await response.json()
-    console.log(json);
 
     if(json.success)
       {

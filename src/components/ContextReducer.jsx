@@ -30,7 +30,7 @@ switch (action.type) {
        let empArray = [];
        return empArray
     default:
-        console.log("Error in Reducer");
+        return state;
 }
 }
 

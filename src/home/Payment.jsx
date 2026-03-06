@@ -41,7 +41,6 @@ export default function Payment() {
         alert('Failed to save order');
       }
     } catch (err) {
-      console.error(err);
       alert('Payment failed');
     } finally {
       setProcessing(false);

@@ -8,8 +8,6 @@ export default function Cart() {
     let dispatch = useDispatchCart();
     let navigate = useNavigate();
     
-    console.log("Cart data:", data);
-    
     if (data.length === 0) {
         return (
             <div>

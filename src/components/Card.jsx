@@ -26,20 +26,15 @@ export default function Card(props) {
       size, 
       img: item.img 
     };
-    
-    console.log("Adding to cart:", cartItem);
 
     if (food.id) {
       if (food.size === size) {
-        console.log("Updating existing item");
         await dispatch({type: "UPDATE", id: item._id, price: finalPrice, qty: parseInt(qty) });
         return;
       } else {
-        console.log("Adding item with different size");
         await dispatch({ type: "ADD", ...cartItem });
       }
     } else {
-      console.log("Adding new item");
       await dispatch({type: "ADD", ...cartItem });
     }
   };
