@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './ContextReducer';
 
 export default function Navbar(props) {
-  localStorage.setItem('temp', "first");
   let navigate = useNavigate();
 
   const handleLogout = () => {

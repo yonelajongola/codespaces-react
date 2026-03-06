@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../home/Footer';
 import Card from '../components/Card';
 import Carousel from '../components/Carousel';
+import AIWaiter from '../components/AIWaiter';
 
 const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
 
@@ -10,6 +11,7 @@ export default function Main() {
     const [foodCat, setFoodCat] = useState([]);
     const [foodItem, setFoodItem] = useState([]);
     const [search, setSearch] = useState('');
+    const [aiMode, setAiMode] = useState(true);
 
     const loadData = async () => {
         try {
@@ -24,7 +26,7 @@ export default function Main() {
             setFoodItem(response[0]);
             setFoodCat(response[1]);
         } catch (error) {
-            console.error("Error loading data:", error);
+            // Silent error handling
         }
     };
 
@@ -33,8 +35,13 @@ export default function Main() {
     }, []);
 
     return (
-        <div>
+        <div className={aiMode ? 'restaurant-ai-mode' : ''}>
             <div><Navbar /></div>
+            {aiMode ? (
+                <div className='ai-mode-banner'>
+                    AI MODE ACTIVE - AI-WAITER is connected and serving smart assistance.
+                </div>
+            ) : null}
             <div>
                 <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel" style={{ objectFit: "contain !important" }}>
                     <div className="carousel-inner" id='carousel'>
@@ -176,6 +183,12 @@ export default function Main() {
                 }
             </div>
             <div><Footer /></div>
+            <AIWaiter
+                foodItems={foodItem}
+                foodCategories={foodCat}
+                onSearch={setSearch}
+                onModeChange={setAiMode}
+            />
         </div>
     );
 }

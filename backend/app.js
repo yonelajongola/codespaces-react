@@ -39,6 +39,7 @@ if (!process.env.NETLIFY) {
 app.use(basePath, require('./Routes/CreateUser'));
 app.use(basePath, require('./Routes/DisplayData'));
 app.use(basePath, require('./Routes/OrderData'));
+app.use(basePath, require('./Routes/AIWaiterPublic'));
 
 if (!process.env.NETLIFY) {
   app.get('/', (req, res) => {
