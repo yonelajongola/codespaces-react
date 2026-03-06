@@ -43,56 +43,7 @@ export default function Main() {
                 </div>
             ) : null}
             <div>
-                <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel" style={{ objectFit: "contain !important" }}>
-                    <div className="carousel-inner" id='carousel'>
-                        <div className="carousel-item active">
-                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&h=600&fit=crop" className="d-block w-100" style={{ filter: "brightness(30%)", height: "600px", objectFit: "cover" }} alt="Burgers" />
-                            <div className="carousel-caption" style={{ zIndex: "10" }}>
-                                <h1 style={{ fontSize: "2.5rem", fontWeight: "bold", marginBottom: "20px" }}>Best Burgers in Town</h1>
-                                <div className="d-flex justify-content-center">
-                                    <input 
-                                        className="form-control me-2" 
-                                        type="search" 
-                                        placeholder="Search for food..." 
-                                        aria-label="Search"
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
-                                        style={{ maxWidth: "400px" }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?w=1200&h=600&fit=crop" className="d-block w-100" style={{ filter: "brightness(30%)", height: "600px", objectFit: "cover" }} alt="Pizza" />
-                            <div className="carousel-caption" style={{ zIndex: "10" }}>
-                                <h2 style={{ fontSize: "2.5rem", fontWeight: "bold" }}>Delicious Pizza</h2>
-                                <p style={{ fontSize: "1.2rem" }}>Fresh ingredients, Traditional recipes</p>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200&h=600&fit=crop" className="d-block w-100" style={{ filter: "brightness(30%)", height: "600px", objectFit: "cover" }} alt="Salads" />
-                            <div className="carousel-caption" style={{ zIndex: "10" }}>
-                                <h2 style={{ fontSize: "2.5rem", fontWeight: "bold" }}>Healthy Salads</h2>
-                                <p style={{ fontSize: "1.2rem" }}>Fresh vegetables, Nutritious & tasty</p>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&h=600&fit=crop" className="d-block w-100" style={{ filter: "brightness(30%)", height: "600px", objectFit: "cover" }} alt="Desserts" />
-                            <div className="carousel-caption" style={{ zIndex: "10" }}>
-                                <h2 style={{ fontSize: "2.5rem", fontWeight: "bold" }}>Sweet Desserts</h2>
-                                <p style={{ fontSize: "1.2rem" }}>Indulge in our heavenly treats</p>
-                            </div>
-                        </div>
-                    </div>
-                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </button>
-                </div>
+                <Carousel search={search} setSearch={setSearch} />
             </div>
             <div className='container py-5'>
                 <h2 className='text-center mb-4' style={{ fontSize: "2rem", fontWeight: "bold", color: '#198754' }}>🍽️ Browse Categories</h2>
