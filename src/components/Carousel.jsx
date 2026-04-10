@@ -1,17 +1,16 @@
 import React from 'react'
 
-export default function Carousel() {
+export default function Carousel({ search, setSearch }) {
   return (
     <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel">
       <div className="carousel-inner" id='carousel'>
         <div className="carousel-item active">
-          <img className="d-block w-100" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&h=600&fit=crop" style={{ filter: "brightness(40%)", height: "600px", objectFit: "cover" }} alt="Bergers" />
+          <img className="d-block w-100" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&h=600&fit=crop" style={{ filter: "brightness(40%)", height: "600px", objectFit: "cover" }} alt="Burgers" />
           <div className="carousel-caption" style={{ zIndex: "10" }}>
             <h1 style={{ fontSize: "3rem", fontWeight: "bold", marginBottom: "20px" }}>Best Burgers in Town</h1>
-            <form className="d-flex justify-content-center">
-              <input className="form-control me-2" type="search" placeholder="Search for food..." aria-label="Search" style={{ maxWidth: "400px" }} />
-              <button className="btn btn-outline-success text-white bg-success" type="submit">Search</button>
-            </form>
+            <div className="d-flex justify-content-center">
+              <input className="form-control me-2" type="search" placeholder="Search for food..." aria-label="Search" value={search} onChange={(e) => setSearch(e.target.value)} style={{ maxWidth: "400px" }} />
+            </div>
           </div>
         </div>
         <div className="carousel-item">
