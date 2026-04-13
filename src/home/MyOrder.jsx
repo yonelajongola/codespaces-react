@@ -28,8 +28,10 @@ export default function MyOrder() {
     };
 
     useEffect(() => {
-        fetchMyOrder();
-    }, []);
+        if (user?.email) {
+            fetchMyOrder();
+        }
+    }, [user]);
 
     return (
         <div>
