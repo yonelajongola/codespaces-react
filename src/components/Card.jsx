@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatchCart, useCart } from './ContextReducer';
-import { useNavigate } from 'react-router-dom'
 
 export default function Card(props) {
   const dispatch = useDispatchCart();
@@ -10,7 +9,6 @@ export default function Card(props) {
   const priceOptions = Object.keys(options);
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState("");
-  let navigate = useNavigate()
 
   const handleAddToCart = async () => {
     if(!size) return alert("Please select a size");
@@ -26,20 +24,15 @@ export default function Card(props) {
       size, 
       img: item.img 
     };
-    
-    console.log("Adding to cart:", cartItem);
 
     if (food.id) {
       if (food.size === size) {
-        console.log("Updating existing item");
         await dispatch({type: "UPDATE", id: item._id, price: finalPrice, qty: parseInt(qty) });
         return;
       } else {
-        console.log("Adding item with different size");
         await dispatch({ type: "ADD", ...cartItem });
       }
     } else {
-      console.log("Adding new item");
       await dispatch({type: "ADD", ...cartItem });
     }
   };

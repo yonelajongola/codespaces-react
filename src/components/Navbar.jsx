@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './ContextReducer';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar(props) {
-  localStorage.setItem('temp', "first");
   let navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userEmail");
+    logout();
     navigate("/login");
   };
 
@@ -32,7 +32,7 @@ export default function Navbar(props) {
                 <Link className="nav-link active fs-5 mx-3" aria-current="page" to="/">Home</Link>
               </li>
               
-              {localStorage.getItem("authToken") && (
+            {user && (
                 <>
                   <li className="nav-item">
                     <Link className="nav-link fs-5 mx-3" to="/myOrder">My Orders</Link>
@@ -46,7 +46,7 @@ export default function Navbar(props) {
               )}
             </ul>
 
-            {(!localStorage.getItem("authToken") )? 
+            {!user ? 
               <div className="d-flex">
                 <Link className="btn bg-white text-success mx-2 fw-bold" to="/login">Login</Link>
                 <Link className="btn bg-white text-success mx-2 fw-bold" to="/createuser">SignUp</Link>

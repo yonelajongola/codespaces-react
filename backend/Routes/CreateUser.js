@@ -9,7 +9,8 @@ const jwtSecret = process.env.JWT_SECRET || "dev_secret_change_me";
 router.post('/createuser', [
     body('email').isEmail(),
     body('name').isLength({ min: 5 }),
-    body('password', 'Incorrect Password').isLength({ min: 5 })
+    body('password', 'Incorrect Password').isLength({ min: 5 }),
+    body('role').optional().isIn(['owner', 'worker']).withMessage('Role must be owner or worker')
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -63,7 +64,7 @@ router.post('/loginuser', [
                 email: userData.email
             }
         };
-        const authToken = jwt.sign(data, jwtSecret);
+        const authToken = jwt.sign(data, jwtSecret, { expiresIn: '8h' });
         return res.json({
             success: true,
             authToken: authToken,

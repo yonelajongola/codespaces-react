@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../home/Footer';
 import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext';
 
 const apiBase = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
 
 export default function MyOrder() {
     const [orderData, setOrderData] = useState([]);
+    const { user } = useAuth();
 
     const fetchMyOrder = async () => {
         try {
-            const userEmail = localStorage.getItem('userEmail');
             const res = await fetch(`${apiBase}/api/myOrderData`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: userEmail
+                    email: user?.email
                 })
             });
             const response = await res.json();

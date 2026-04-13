@@ -210,7 +210,7 @@ export default function WorkerDashboard() {
                                             <div className="card-body p-2">
                                                 <h6 className="card-title small">{item.name}</h6>
                                                 <div className="text-muted small">{item.category}</div>
-                                                <div className="fw-bold">${item.price.toFixed(2)}</div>
+                                                <div className="fw-bold">R{item.price.toFixed(2)}</div>
                                                 <button
                                                     className="btn btn-sm btn-primary mt-1 w-100"
                                                     onClick={() => addToCart(item)}
@@ -238,7 +238,7 @@ export default function WorkerDashboard() {
                                                     <button className="btn btn-sm btn-outline-secondary py-0" onClick={() => updateCartQuantity(item._id, item.quantity - 1)}>-</button>
                                                     <span>{item.quantity}</span>
                                                     <button className="btn btn-sm btn-outline-secondary py-0" onClick={() => updateCartQuantity(item._id, item.quantity + 1)}>+</button>
-                                                    <span className="ms-auto">${(item.price * item.quantity).toFixed(2)}</span>
+                                                    <span className="ms-auto">R{(item.price * item.quantity).toFixed(2)}</span>
                                                 </div>
                                                 <input
                                                     type="text"
@@ -252,7 +252,7 @@ export default function WorkerDashboard() {
                                     ))}
                                     <div className="d-flex justify-content-between fw-bold mt-2 mb-3">
                                         <span>Total:</span>
-                                        <span>${cartTotal.toFixed(2)}</span>
+                                        <span>R{cartTotal.toFixed(2)}</span>
                                     </div>
                                     <button
                                         className="btn btn-success w-100"
@@ -287,7 +287,7 @@ export default function WorkerDashboard() {
                                         <ul className="list-unstyled mb-2">
                                             {order.items.map((item, i) => (
                                                 <li key={i} className="small">
-                                                    {item.quantity}× {item.name} — ${(item.price * item.quantity).toFixed(2)}
+                                                    {item.quantity}× {item.name} — R{(item.price * item.quantity).toFixed(2)}
                                                     {item.notes && <span className="text-muted"> ({item.notes})</span>}
                                                 </li>
                                             ))}

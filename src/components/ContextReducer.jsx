@@ -31,8 +31,8 @@ switch (action.type) {
        return empArray
     default:
         console.log("Error in Reducer");
-}
-}
+        return state;
+}}
 
 export const CartProvider = ({ children}) => {
     const [state, dispatch] = useReducer(reducer, [])

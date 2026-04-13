@@ -93,14 +93,6 @@ export default function Main() {
                     {foodCat.length > 0 
                         ? foodCat.map((category) => {
                             const itemCount = foodItem.filter(item => item.CategoryName === category.CategoryName).length;
-                            const categoryIcons = {
-                                'Burgers': '🍔',
-                                'Pizza': '🍕',
-                                'Vegetarian': '🥗',
-                                'Desserts': '🍰',
-                                'Beverages': '🥤',
-                                'Salads': '🥙'
-                            };
                             const categoryImage = foodItem.find(fi => fi.CategoryName === category.CategoryName)?.img || 'https://via.placeholder.com/300x150?text=No+Image';
                             return (
                                 <div key={category._id} className='col-12 col-md-6 col-lg-4 col-xl-3'>
